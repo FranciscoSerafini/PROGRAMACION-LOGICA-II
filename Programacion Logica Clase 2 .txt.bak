@@ -1,0 +1,115 @@
+Inicio Programa Banco
+	Inicio AdeD Saldos
+		Campo Nombre txt[35]
+		Campo Fecha Date[dd/mm/aaaa]
+		Campo Saldo Numerico[10]
+		Campo Hora Time [hh:mm:ss:m/s]
+	Fin AdeD
+	
+	Inicio Procedimiento Suma
+		Variable VarTotal tiponumerica
+		Abrir AdeD Saldos
+		Leer AdeD Saldos
+		Mientras(not saldos.eof)
+			VarTotal = VarTotal + AdeD Saldos.Saldo
+			Leer AdeD Saldos
+		Fin Mientras
+		Cerrar AdeD Saldos
+	Fin Procedimiento
+	
+	Inicio Procedimiento Busqueda
+		Variable nombre tipotexto = txtnombre
+		Abrir AdeD Saldos
+		Leer  AdeD Saldos
+		Mientras(not AdeD Saldos.eof)
+			Si (AdeD saldos.Nombre = nombre) entonces 
+				lblFecha.text = AdeD Saldos.Fecha
+				lblSaldo.text = AdeD Saldos.Saldo
+				Leer AdeD Saldos
+			Fin si 
+		Fin Mientras
+		Cerrar AdeD Saldos
+		
+//Usted debera mostrar en una etiqueta el nombre de la persona que tenga el mayor monto
+
+	Inicio Procedimiento Busqueda Mayor Monto
+		VarMayor tiponumerica = 0
+		Abrir AdeD Saldos
+		Leer AdeD Saldos
+		varNombre tipotexto
+		
+		Mientras(not AdeD Saldos.eof) entonces
+			Si (AdeDSaldos.saldo > VarMayor ) entonces
+				VarMayor = AdeDSaldos.saldo
+				varNombre = AdeDSaldos.Nombre
+			Fin Si
+			Leer AdeDSaldos
+		Fin Mientras
+		
+		lblMayorSueldo = VarMayor
+	Fin Procedimiento
+_________________________________________________________________________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________________________________________________________________________
+Clase 29/08
+
+NOMBRE		FECHA			HORA 		MONTO 
+
+Sol			10/10/2020		9:00		100
+Ana			10/10/2020		12:00		600
+Eva			10/10/2020		16:00		800
+Eva			11/10/2020		3:00		200
+Ana			11/10/2020		9:00		150
+Luz			12/10/2020		14:00		1000
+
+Inicio Programa Banco CARC
+	´Declaracion Datos Globales
+		Variable DesdeDate tiponumerica
+		Variable HastaDate tiponumerica
+		
+	Inicio AdeD Costo
+		Campo Nombre Texto[35]
+		Campo Fecha Date [dd/mm/aaaa]
+		Campo Hora Time[hh.mm.ss.nnnn]
+		Campo Monto Numerico[10]
+	Fin AdeD
+
+//Busqueda Rapida
+	Procedimiento btnRC_click
+		DesdeDate[dd/mm/aaaa] = txtDesde.text
+		HastaDate[dd/mm/aaaa] = txtHasta.text
+		Abrir AdeD Costo
+		Leer AdeD Costo
+		Mientras(not.AdeDCosto.eof y AdeDCosto.fecha < DesdeDate) hacer
+			leer AdeDCosto
+		Fin mientras
+		
+		Mientras(not.AdeDCosto.eof y AdeDCosto.fecha < HastaDate) hacer
+			varTotal = varTotal + AdeDCosto.saldo
+			Leer AdeDCosto
+		Fin Mientras
+		Cerrar AdeDCosto
+		lblmonto.text = varTotal.ToString
+	Fin Procedimiento
+
+//Usted debera mostrar en un formulario los nombres del que posee el mayor y menor monto en el archivo costo
+	Variable Mayor tiponumerica
+	Variable Menor tiponumerica
+	
+	Mientras(not.AdeDCosto.eof) hacer
+		Si(AdeDCosto.monto < menor) entonces
+			Menor = AdeDCosto.monto
+			Nombre uno = AdeDCosto.nombre
+		Fin si
+		
+		Si(AdeDCosto.Monto > mayor) entonces
+			Mayor = AdeDCosto.Monto
+			Nombre Dos = AdeDCosto.Nombre
+		Fin si
+		Leer AdeDCosto
+	Fin Mientras
+		
+		
+
+			
+			
+				

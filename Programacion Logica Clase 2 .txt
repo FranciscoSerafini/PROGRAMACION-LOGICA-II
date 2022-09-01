@@ -1,0 +1,247 @@
+Inicio Programa Banco
+	Inicio AdeD Saldos
+		Campo Nombre txt[35]
+		Campo Fecha Date[dd/mm/aaaa]
+		Campo Saldo Numerico[10]
+		Campo Hora Time [hh:mm:ss:m/s]
+	Fin AdeD
+	
+	Inicio Procedimiento Suma
+		Variable VarTotal tiponumerica
+		Abrir AdeD Saldos
+		Leer AdeD Saldos
+		Mientras(not saldos.eof)
+			VarTotal = VarTotal + AdeD Saldos.Saldo
+			Leer AdeD Saldos
+		Fin Mientras
+		Cerrar AdeD Saldos
+	Fin Procedimiento
+	
+	Inicio Procedimiento Busqueda
+		Variable nombre tipotexto = txtnombre
+		Abrir AdeD Saldos
+		Leer  AdeD Saldos
+		Mientras(not AdeD Saldos.eof)
+			Si (AdeD saldos.Nombre = nombre) entonces 
+				lblFecha.text = AdeD Saldos.Fecha
+				lblSaldo.text = AdeD Saldos.Saldo
+				Leer AdeD Saldos
+			Fin si 
+		Fin Mientras
+		Cerrar AdeD Saldos
+		
+//Usted debera mostrar en una etiqueta el nombre de la persona que tenga el mayor monto
+
+	Inicio Procedimiento Busqueda Mayor Monto
+		VarMayor tiponumerica = 0
+		Abrir AdeD Saldos
+		Leer AdeD Saldos
+		varNombre tipotexto
+		
+		Mientras(not AdeD Saldos.eof) entonces
+			Si (AdeDSaldos.saldo > VarMayor ) entonces
+				VarMayor = AdeDSaldos.saldo
+				varNombre = AdeDSaldos.Nombre
+			Fin Si
+			Leer AdeDSaldos
+		Fin Mientras
+		
+		lblMayorSueldo = VarMayor
+	Fin Procedimiento
+_________________________________________________________________________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________________________________________________________________________
+Clase 29/08
+
+NOMBRE		FECHA			HORA 		MONTO 
+
+Sol			10/10/2020		9:00		100
+Ana			10/10/2020		12:00		600
+Eva			10/10/2020		16:00		800
+Eva			11/10/2020		3:00		200
+Ana			11/10/2020		9:00		150
+Luz			12/10/2020		14:00		1000
+
+Inicio Programa Banco CARC
+	´Declaracion Datos Globales
+		Variable DesdeDate tiponumerica
+		Variable HastaDate tiponumerica
+		
+	Inicio AdeD Costo
+		Campo Nombre Texto[35]
+		Campo Fecha Date [dd/mm/aaaa]
+		Campo Hora Time[hh.mm.ss.nnnn]
+		Campo Monto Numerico[10]
+	Fin AdeD
+
+//Busqueda Rapida
+	Procedimiento btnRC_click
+		DesdeDate[dd/mm/aaaa] = txtDesde.text
+		HastaDate[dd/mm/aaaa] = txtHasta.text
+		Abrir AdeD Costo
+		Leer AdeD Costo
+		Mientras(not.AdeDCosto.eof y AdeDCosto.fecha < DesdeDate) hacer
+			leer AdeDCosto
+		Fin mientras
+		
+		Mientras(not.AdeDCosto.eof y AdeDCosto.fecha < HastaDate) hacer
+			varTotal = varTotal + AdeDCosto.saldo
+			Leer AdeDCosto
+		Fin Mientras
+		Cerrar AdeDCosto
+		lblmonto.text = varTotal.ToString
+	Fin Procedimiento
+
+//Usted debera mostrar en un formulario los nombres del que posee el mayor y menor monto en el archivo costo
+	Variable Mayor tiponumerica
+	Variable Menor tiponumerica
+	
+	Mientras(not.AdeDCosto.eof) hacer
+		Si(AdeDCosto.monto < menor) entonces
+			Menor = AdeDCosto.monto
+			Nombre uno = AdeDCosto.nombre
+		Fin si
+		
+		Si(AdeDCosto.Monto > mayor) entonces
+			Mayor = AdeDCosto.Monto
+			Nombre Dos = AdeDCosto.Nombre
+		Fin si
+		Leer AdeDCosto
+	Fin Mientras
+
+_________________________________________________________________________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________________________________________________________________________
+
+NOMBRE		FECHA		HORA		SALDO
+Ana			6/1/21		12:00		300
+Ana			6/1/21		18:00		200
+Ana			12/12/21	6:00		1000
+Eva			4/2/21		22:00		-50
+Eva			5/3/22		5:10		200
+Eva			10/8/22		8:00		600
+Eva			10/8/22		15:00		200
+Sol			3/10/20		9:00		180
+Sol			6/10/20		6:00		1000
+Sol			11/4/20		14:00		600
+Sol			3/10/20		22:00		800
+Uma			1/09/22		5:00		400
+
+inicio de programa
+	
+	procedimiento grilla-carga
+		variable F tiponumerica = 0
+		grlMostrar [f][1] = "NOMBRE"
+		grlMostrar [f][2] = "FECHA"
+		grlMostrar [f][3] = "HORA"
+		grlMostrar [f][4] = "SALDO"
+		F=0
+		
+		abrir AdeD SALDO
+			leer AdeD SALDO
+			mientras(NOT AdeD SALDO.eof)
+				grlMostrar[f][1] = AdeD SALDO.NOMBRE
+				grlMostrar[f][2] = AdeD SALDO.FECHA
+				grlMostrar[f][3] = AdeD SALDO.HORA
+				grlMostrar[f][4] = AdeD SALDO.SALDO
+				leer AdeD SALDO
+				F=F + 1 
+			fin mientras
+		cerrar AdeD SALDO
+		//recorrera el vector A cargado con nombres utilizando busqueda rapida y cargara la grilla en el mismo orden que el vector
+		variable F tiponumerica = 0 I=0
+		grlMostrar [f][1] = "NOMBRE"
+		grlMostrar [f][2] = "FECHA"
+		grlMostrar [f][3] = "HORA"
+		grlMostrar [f][4] = "SALDO"
+		F=0
+		
+		mientras(i<=4)
+			Abrir AdeD SALDO
+			leer AdeD  SALDO
+			mientras(not AdeD SALDO.eof and AdeD SALDO.NOMBRE <>vecA[i])//recorre el vector, se deben cumplir las dos condiciones, se posiciona
+				leer AdeD SALDO
+			fin mientras
+			mientras(NOT AdeD SALDO.eof and AdeD SALDO.NOMBRE = vecA[i])
+				grlMostrar[f][1] = AdeD SALDO.NOMBRE
+				grlMostrar[f][2] = AdeD SALDO.FECHA
+				grlMostrar[f][3] = AdeD SALDO.HORA
+				grlMostrar[f][4] = AdeD SALDO.SALDO
+				leer AdeD SALDO
+				F=F+1
+			fin mientras
+			cerrar AdeD SALDO
+			i=i+1
+			
+//usted debera recorrer el vector B y debera totalizar la cantidad de dinero por cada fecha del vector
+	var total = 0
+	mientras(i<4)
+		Abrir AdeD SALDO
+		leer  AdeD SALDO
+		mientras(NOT AdeD SALDO.eof)
+			si(AdeD SALDO.FECHA = vecB[i])
+				varTotal = varTotal + AdeD SALDO.SALDO
+			fin si
+			leer AdeD
+		fin mientas	
+		cerrar AdeD SALDO
+		grlMostrar [f][1] = vecB
+		grlMostrar [f][2] = varTotal
+		f = f+1
+		i = i+1
+	fin mientras
+	
+GRILLA GRAL MOSTRARE [F][4]
+
+Procedimiento grilla-vector
+	variable FG tiponumerica = 0 ; i = 0 ; varTotal ; FM ; C
+	grlMostrar [FG][1] = "NOMBRE"
+	grlMostrar [FG][2] = "FECHA"
+	grlMostrar [FG][3] = "HORA"
+	grlMostrar [FG][4] = "SALDO"
+	FG = 1
+	mientras(c<=3)
+		mientras(FM <=3)
+			abrir AdeD SALDO
+			leer AdeD SALDO
+				mientras(NOT AdeD SALDO.EOF and AdeD SALDO.NOMBRE <> CARP[FM][C])
+					leer AdeD
+				fin mientras
+				mientras(NOT AdeD SALDO.EOF and AdeD SALDO.NOMBRE=CARP[FM][C])
+					grlMostrar [FG][1] = "NOMBRE"
+					grlMostrar [FG][2] = "FECHA"
+					grlMostrar [FG][3] = "HORA"
+					grlMostrar [FG][4] = "SALDO"
+					leer AdeD SALDO
+					FG = FG + 1
+				fin mientras
+				cerrar AdeD SALDO
+				FM = FM + 1
+		fin mientras
+		FM = 0
+		c=c+1
+	fin mientras
+	
+//se dispone de una matriz llamada MATRIZ FECHA de [10][10] usted debera totalizar el total
+ de dinero trabajado en esa fecha y debera mostrar en una grilla inclusive adviertiendo si
+ en esa fecha no hubo movimiento
+ 
+MatFecha tiponumerica [10][10]
+
+	procedimiento Grilla-Matriz
+		grlMostrar [FG][1] = fecha
+		grlMostrar [FG][2] = saldo
+		FG=1
+		
+		mientras(c<10)
+			mientras(FG<10)
+				abrir AdeD SALDO
+				leer AdeD SALDO
+					Mientras(NOT AdeD SALDO.EOF)
+						si(AdeD SALDO.FECHA = MatFecha[FM][C])
+							varTotal = varTotal + AdeDSaldos.SALDO
+						fin si
+						leer AdeD SALDO
+					fin mientras
+				cerrar AdeD SALDO
+				gral Mostrar [FG][c] = MatFecha [FG][C]
+				Si varTotal = 0
+					

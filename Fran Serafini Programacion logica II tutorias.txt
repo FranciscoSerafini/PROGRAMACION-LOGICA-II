@@ -1,0 +1,164 @@
+Estructura basica para resolver los problemas
+
+Abrir AdeD
+Leer  AdeD
+	mientras(not AdeD.Eof)
+		
+		
+		
+		
+		leer AdeD
+	fin mientras
+	cerrar AdeD
+------------------------------------------------------------
+1ºcaso --> mostrar todo el contenido del archivo
+
+procedimiento btnListar_click
+	fg = 1
+	Abrir AdeDClientes
+	Leer  AdeDClientes
+	mientras(notAdeDClientes.eof)
+		cantidad = cantidad + 1
+		GrillaMostrar[fg][][0] = AdeDClientes.codigo
+		GrillaMostrar[fg][][1] = AdeDClientes.nombres
+		GrillaMostrar[fg][][2] = AdeDClientes.Deuda
+		fg=fg+1
+		leer AdeDClientes ----------> siempre al final del recorrido 
+	fin mientras
+	cerrar AdeDClientes --------> siempre abajo del fin mientras 
+	lblCantidad = cantidad
+fin procedimiento
+---------------------------------------------------------------------
+2ºCaso -->> listar clientes deudores
+
+procedimiento btnListar_click
+	varCantidad = 0
+	varTotalDeuda = 0
+	varFG = 0
+	Abrir AdeDClientes
+	Leer AdeDClientes
+	mientras(notAdeDClientes.eof)
+		si(AdeDClientes.deuda > 0)
+			cantidad = cantidad + 1
+			totalDeuda = totalDeuda + AdeDClientes.deudas
+			GrillaMostrar[fg][][0] = AdeDClientes.codigo
+			GrillaMostrar[fg][][1] = AdeDClientes.nombres
+			GrillaMostrar[fg][][2] = AdeDClientes.deuda
+			fg=fg+1
+		fin si
+		leer AdeDClientes
+	fin mientras
+	cerrar AdeDClientes
+	lblCantidad = Cantidad
+	lblTotalDeuda = TotalDeuda
+	lblPromedio = TotalDeuda/Cantidad
+----------------------------------------------------------------------
+procedimiento botonListar_click ----> funciona, pero no es eficiente
+	abrir AdeDVentas
+	leer AdeDVentas
+	mientras(not AdeDVentas.eof)
+		si(AdeDVentas.codigo = txtCodigo)
+			
+			
+			
+		fin si
+		leer AdeDVentas
+	fin mientras
+	cerrar AdeDVentas
+
+procedimiento botonListar_click ---> 	
+	c = 0
+	total = 0
+	fg = 1
+	max = 0
+	abrir AdeDVentas
+	leer AdeDVentas
+	mientras(notAdeDVentas.eof and AdeDVentas.codigo <> txtCodigo)//lee hasta que encuentra lo que estamos buscando
+		leer AdeDVentas
+	fin mientras
+	varMayor = AdeDVentas.deuda
+	varMenor = AdeDVentas.deuda
+	mientras(notAdeDVentas.eof and AdeDVentas.codigo == txtCodigo)
+		
+		si(max > AdeDVentas.Deuda)
+			max = AdeDVentas.Deuda
+		fin si
+		si(varMenor < AdeDVentas.Deuda)
+			varMenor = AdeDVentas.Deuda
+		fin si
+		leer AdeDVentas
+	fin mientras
+	cerrar AdeDVentas	
+	lblCantidad = Cantidad
+	lblTotalDeuda = TotalDeuda
+	lblPromedio = TotalDeuda/Cantidad
+	lblMayor = max
+-----------------------------------------------------------------------------------------------------
+procedimiento  btnListar_click
+	varPagoTarjeta = 0
+	varPagoContado = 0
+	varDesde = txtDesde
+	varHasta = txtHasta
+	abrir AdeDFac
+	leer AdeDFac
+	mientras(not AdeDFac.eof and AdeDFac.Fecha < varDesde)
+		leer AdeDFac
+	fin mientras
+	mientras(not AdeDFac.eof and AdeDFac.Fecha <= varHasta)
+		GrillaMostrar[fg][0] = AdeDFac.Nombre
+		GrillaMostrar[fg][1] = AdeDFac.Fecha
+		GrillaMostrar[fg][2] = AdeDFac.Titular
+		GrillaMostrar[fg][3] = AdeDFac.Pago
+		GrillaMostrar[fg][4] = AdeDFac.Importe
+		total = total = AdeDFac.Monto
+		fg=fg+1
+		si(AdeDFac.pago = "Contado")
+			tc=tc+AdeDFac.Importe
+		sino
+			tt = tt + AdeDFac.importe
+		
+		
+		leer AdeDFac
+	fin mientras
+	cerrar AdeDFac
+	lblTarjeta = Tarjeta
+	lblContado = Contado
+	lblTotal = Tarjeta + contado
+	
+B)Un procedimiento que muestre en pantalla el total faturado por día, la cantidad de facturas y 
+el promedio. Dicho reporte deberá trabajarse en una interfaz como la siguiente:
+
+inicio del procedimiento
+	abrir AdeDFac
+	Leer AdeDFac
+	mientras(not AdeDFac.eof)
+		aux = AdeDFac.Fecha
+		C = 0
+		T = 0
+		mientras(not AdeDFac.eof and AdeDFac.Fecha = Aux)
+			c = c+1
+			t = t + AdeDFac.importe
+		fin mientras
+		GrillaMostrar[fg][0] = aux
+		GrillaMostrar[fg][0] = c 
+		GrillaMostrar[fg][0] = T
+		GrillaMostrar[fg][0] = T/C
+		fg = fg +1
+	fin mientras
+	cerrar AdeDFac
+		
+			
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
